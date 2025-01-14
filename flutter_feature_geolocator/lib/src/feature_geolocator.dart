@@ -1,8 +1,9 @@
+import 'package:detect_fake_location/detect_fake_location.dart';
 import 'package:flutter_feature_geolocator/src/geolocator_repository.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:safe_device/safe_device.dart';
 
 class FeatureGeoLocator extends FeatureGeoLocatorRepository {
-
   /// Returns a [Future] containing a [bool] value indicating whether location
   /// services are enabled on the device.
   @override
@@ -45,7 +46,7 @@ class FeatureGeoLocator extends FeatureGeoLocatorRepository {
   /// A [PermissionRequestInProgressException] is thrown if permissions are
   /// requested while an earlier request has not yet been completed.
   @override
-  Future<void> requestPermission() {
+  Future<LocationPermission> requestPermission() {
     return Geolocator.requestPermission();
   }
 
@@ -57,7 +58,7 @@ class FeatureGeoLocator extends FeatureGeoLocatorRepository {
   /// this parameter is ignored.
   /// When no position is available, null is returned.
   @override
-  Future<void> getLastKnownLocation({bool useNewerFusedLocationProvider = true}) {
+  Future<Position?> getLastKnownLocation({bool useNewerFusedLocationProvider = true}) {
     bool useOldVersionLocationManager = !useNewerFusedLocationProvider;
     return Geolocator.getLastKnownPosition(forceAndroidLocationManager: useOldVersionLocationManager);
   }
@@ -120,7 +121,7 @@ class FeatureGeoLocator extends FeatureGeoLocatorRepository {
   /// Requests a tradeoff that favors highly accurate locations at the possible
   /// expense of additional power usage.
   @override
-  Future<void> getCurrentPosition({LocationSettings? locationSettings}) {
+  Future<Position> getCurrentPosition({LocationSettings? locationSettings}) {
     return Geolocator.getCurrentPosition(locationSettings: locationSettings);
   }
 
@@ -131,8 +132,22 @@ class FeatureGeoLocator extends FeatureGeoLocatorRepository {
   /// supplied coordinates [startLatitude], [startLongitude], [endLatitude] and
   /// [endLongitude] should be supplied in degrees.
   @override
-  double distanceBetween({required double startLatitude, required double startLongitude, required double endLatitude, required double endLongitude}) {
+  double distanceBetween({
+    required double startLatitude,
+    required double startLongitude,
+    required double endLatitude,
+    required double endLongitude,
+  }) {
     return Geolocator.distanceBetween(startLatitude, startLongitude, endLatitude, endLongitude);
   }
 
+  /// Calculates the distance between the supplied coordinates in meters.
+  ///
+  /// Return [bool] true if fake location detected, otherwise it will return false
+  @override
+  Future<bool> isFakeLocation() async {
+    final isFakeLocation1 = await DetectFakeLocation().detectFakeLocation();
+    final isFakeLocation2 = await SafeDevice.isMockLocation;
+    return isFakeLocation1 || isFakeLocation2;
+  }
 }

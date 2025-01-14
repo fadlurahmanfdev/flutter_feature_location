@@ -1,7 +1,7 @@
 name: flutter_feature_geolocator
-description: "A new Flutter package project."
+description: "Flutter Library to simplified geolocator"
 version: 0.0.1
-homepage:
+homepage: https://github.com/fadlurahmanfdev/flutter_feature_location
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -11,7 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  detect_fake_location: ^2.1.0
   geolocator: ^13.0.2
+  safe_device: ^1.2.0
 
 dev_dependencies:
   flutter_test:

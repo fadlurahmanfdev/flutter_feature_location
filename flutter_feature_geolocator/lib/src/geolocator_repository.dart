@@ -30,7 +30,7 @@ abstract class FeatureGeoLocatorRepository {
   /// AndroidManifest.xml on Android or the Info.plist on iOS).
   /// A [PermissionRequestInProgressException] is thrown if permissions are
   /// requested while an earlier request has not yet been completed.
-  Future<void> requestPermission();
+  Future<LocationPermission> requestPermission();
 
   /// Returns the last known position stored on the users device.
   ///
@@ -39,7 +39,7 @@ abstract class FeatureGeoLocatorRepository {
   /// passing true to the [forceAndroidLocationManager] parameter. On iOS
   /// this parameter is ignored.
   /// When no position is available, null is returned.
-  Future<void> getLastKnownLocation({bool useNewerFusedLocationProvider = true});
+  Future<Position?> getLastKnownLocation({bool useNewerFusedLocationProvider = true});
 
   /// Returns the current position.
   ///
@@ -98,7 +98,7 @@ abstract class FeatureGeoLocatorRepository {
   /// [LocationAccuracy.high]+ -> [PRIORITY_HIGH_ACCURACY](https://developers.google.com/android/reference/com/google/android/gms/location/Priority#public-static-final-int-priority_high_accuracy):
   /// Requests a tradeoff that favors highly accurate locations at the possible
   /// expense of additional power usage.
-  Future<void> getCurrentPosition({LocationSettings? locationSettings});
+  Future<Position> getCurrentPosition({LocationSettings? locationSettings});
 
   /// Calculates the distance between the supplied coordinates in meters.
   ///
@@ -112,4 +112,9 @@ abstract class FeatureGeoLocatorRepository {
     required double endLatitude,
     required double endLongitude,
   });
+
+  /// Calculates the distance between the supplied coordinates in meters.
+  ///
+  /// Return [bool] true if fake location detected, otherwise it will return false
+  Future<bool> isFakeLocation();
 }

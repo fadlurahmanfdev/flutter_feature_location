@@ -1,39 +1,94 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Description
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Flutter package to handle geolocator, it depends on [geolocator](https://pub.dev/packages/geolocator) library.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## Key Features
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+### Open App Setting
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Opens the App settings page.
 
 ```dart
-const like = 'sample';
+Future<void> screenFunction() async {
+  final geolocator = FeatureGeoLocator();
+  geolocator.openAppSetting();
+}
 ```
 
-## Additional information
+### Open Location Setting
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Opens the location settings page.
+
+```dart
+Future<void> screenFunction() async {
+  final geolocator = FeatureGeoLocator();
+  geolocator.openLocationSettings();
+}
+```
+
+### Permission
+
+Check the location permission of apps.
+
+```dart
+Future<void> screenFunction() async {
+  final geolocator = FeatureGeoLocator();
+  final permissionResult = await geolocator.checkPermission();
+  if(permissionResult == LocationPermission.always || permissionResult == LocationPermission.whileInUse){
+    // permission success
+  }
+}
+```
+
+### Last Known Location
+
+Check the last known location of the device
+
+```dart
+Future<void> screenFunction() async {
+  final lastKnownLocation = await featureGeoLocator.getLastKnownLocation();
+  log("last known: ${lastKnownLocation?.longitude} & ${lastKnownLocation?.longitude}");
+}
+```
+
+### Current Position
+
+Check the current position
+
+```dart
+Future<void> screenFunction() async {
+  final locationSettings = LocationSettings(
+    accuracy: LocationAccuracy.high,
+    timeLimit: Duration(seconds: 60),
+  );
+  final currentPosition = await featureGeoLocator.getCurrentPosition(locationSettings: locationSettings);
+  // process current position
+}
+```
+
+### Distance Between Two Location
+
+Check the distance between two location
+
+```dart
+Future<void> screenFunction() async {
+  final distance = featureGeoLocator.distanceBetween(
+      startLatitude: -6.1719, 
+      startLongitude: 106.8229, 
+      endLatitude: -6.373102, 
+      endLongitude: 106.834625,
+  );
+  // process distance
+}
+```
+
+### Check Fake Location
+
+Check device using fake/mock location
+
+```dart
+Future<void> screenFunction() async {
+  final isFakeLocation = featureGeoLocator.isFakeLocation();
+  // process fake location
+}
+```
