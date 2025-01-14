@@ -1,9 +1,9 @@
-name: Android Pre Release (Check Tag & Dry Run Publish Pub Dev)
+name: Geolocator Pre Release (Check Tag & Dry Run Publish Pub Dev)
 
 on:
   push:
     tags:
-      - 'android-v*'
+      - 'geolocator-v*'
 
 jobs:
   build:

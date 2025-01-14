@@ -1,4 +1,4 @@
-name: Create Android Release & Publish Android to Pub Dev
+name: Create Geolocator Release & Publish Geolocator to Pub Dev
 
 on:
   workflow_dispatch:
