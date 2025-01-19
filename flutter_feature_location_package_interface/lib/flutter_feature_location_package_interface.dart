@@ -4,6 +4,3 @@ export 'src/controller/map_controller_state.dart';
 export 'src/model/location_coordinate.dart';
 export 'src/model/marker_coordinate.dart';
 export 'src/model/zoom_option.dart';
-
-
-export 'src/feature_map_view.dart';
