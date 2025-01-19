@@ -95,18 +95,18 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: FeatureOSMMapView(controller: controller),
+      body: mapView(),
       // body: Center(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.abc),
         onPressed: () {
-          // ADD MARKER
-          controller.addMarker(
-            coordinates: [
-              FeatureMarkerCoordinate(id: 'id-marker-2', latitude: -6.373102, longitude: 106.834625),
-            ],
-          );
-          controller.moveMap(FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
+          // // ADD MARKER
+          // controller.addMarker(
+          //   coordinates: [
+          //     FeatureMarkerCoordinate(id: 'id-marker-2', latitude: -6.373102, longitude: 106.834625),
+          //   ],
+          // );
+          // controller.moveMap(FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
 
           // // MOVE MARKER
           // if (index.isOdd) {
@@ -118,6 +118,14 @@ class _MyHomePageState extends State<MyHomePage> {
           //       coordinate: FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
           //   controller.moveMap(FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
           // }
+
+          // REMOVE MARKER
+          controller.removeMarker(
+            idsMarker: [
+              'id-marker-2',
+            ],
+          );
+          controller.moveMap(FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
 
           // // ZOOM IN
           // controller.zoomIn();
@@ -136,5 +144,9 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
     );
+  }
+
+  Widget mapView() {
+    return FeatureOSMMapView(controller: controller);
   }
 }

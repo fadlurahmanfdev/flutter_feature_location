@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  detect_fake_location:
+    dependency: transitive
+    description:
+      name: detect_fake_location
+      sha256: ccafeb4a73d204ee50c31cdc699f2eaa551858225c95df2962d11ab0f4976946
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   dio:
     dependency: transitive
     description:
@@ -94,12 +102,21 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_feature_geolocator:
+    dependency: transitive
+    description:
+      name: flutter_feature_geolocator
+      sha256: "721c2aea401e2be19288d99bb1c5cfea56c2fe39752ff7dd47e3908825a40670"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   flutter_feature_location_package_interface:
     dependency: transitive
     description:
-      path: "../../flutter_feature_location_package_interface"
-      relative: true
-    source: path
+      name: flutter_feature_location_package_interface
+      sha256: "75b9301aa0d8dd5e22fc4a3db8ab4aa8fd59f5d8c73646fafa1a8ef19bf8ae9b"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.0.1"
   flutter_feature_osm:
     dependency: "direct main"
@@ -158,6 +175,54 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  geolocator:
+    dependency: transitive
+    description:
+      name: geolocator
+      sha256: d2ec66329cab29cb297d51d96c067d457ca519dca8589665fa0b82ebacb7dbe4
+      url: "https://pub.dev"
+    source: hosted
+    version: "13.0.2"
+  geolocator_android:
+    dependency: transitive
+    description:
+      name: geolocator_android
+      sha256: "7aefc530db47d90d0580b552df3242440a10fe60814496a979aa67aa98b1fd47"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.6.1"
+  geolocator_apple:
+    dependency: transitive
+    description:
+      name: geolocator_apple
+      sha256: "6154ea2682563f69fc0125762ed7e91e7ed85d0b9776595653be33918e064807"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.8+1"
+  geolocator_platform_interface:
+    dependency: transitive
+    description:
+      name: geolocator_platform_interface
+      sha256: "386ce3d9cce47838355000070b1d0b13efb5bc430f8ecda7e9238c8409ace012"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.4"
+  geolocator_web:
+    dependency: transitive
+    description:
+      name: geolocator_web
+      sha256: "2ed69328e05cd94e7eb48bb0535f5fc0c0c44d1c4fa1e9737267484d05c29b5e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.1"
+  geolocator_windows:
+    dependency: transitive
+    description:
+      name: geolocator_windows
+      sha256: "53da08937d07c24b0d9952eb57a3b474e29aae2abf9dd717f7e1230995f13f0e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.3"
   google_polyline_algorithm:
     dependency: transitive
     description:
@@ -302,6 +367,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.5"
+  safe_device:
+    dependency: transitive
+    description:
+      name: safe_device
+      sha256: "953aeac3486180df9118a1a3f5fb842d84015e8aa6f2607edeb5fb881b67a669"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   sky_engine:
     dependency: transitive
     description: flutter

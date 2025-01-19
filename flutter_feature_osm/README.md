@@ -1,39 +1,108 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Description
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Flutter package to handle [OpenStreetMap](https://www.openstreetmap.org)
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## Key Features
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+### Map Controller
 
-## Features
+Controller to handle map view (zoomIn, zoomOut, addMarker, removeMarker, etc).
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+| Key - FeatureMapController | Desc                                                |
+|----------------------------|-----------------------------------------------------|
+| initMapCoordinate          | Coordinate map to display to user.                  |
+| markersCoordinate          | List of marker coordinate to tag position in a map. |
+| zoomOption                 | Zoom configuration setting related to map view.     |
 
-## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### Display Map
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Display MAP from OpenStreetMap
 
 ```dart
-const like = 'sample';
+final controller = FeatureMapController(
+  initMapCoordinate: FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229),
+  markersCoordinate: [
+    FeatureMarkerCoordinate(
+      id: 'id-marker-1',
+      latitude: -6.1719,
+      longitude: 106.8229,
+    )
+  ],
+  zoomOption: FeatureZoomOption(
+    stepZoom: 1.0,
+    maxZoomLevel: 19.0,
+    minZoomLevel: 2.0,
+    initZoom: 16.0,
+  ),
+);
+
+Widget mapView(){
+  return FeatureOSMMapView(controller: controller);
+}
 ```
 
-## Additional information
+### Add Marker
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Add marker to existing Map Controller
+
+```dart
+Future<void> screenFunction() async {
+  controller.addMarker(
+    coordinates: [
+      FeatureMarkerCoordinate(id: 'id-marker-2', latitude: -6.373102, longitude: 106.834625),
+    ],
+  );
+}
+```
+
+### Move Marker
+
+Move marker based on existing id marker in a controller.
+
+```dart
+Future<void> screenFunction() async {
+  controller.moveMarker('id-marker-1',
+      coordinate: FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229));
+}
+```
+
+### Remove Marker
+
+Remove marker based on existing id
+
+```dart
+Future<void> screenFunction() async {
+  controller.removeMarker(
+    idsMarker: [
+      'id-marker-2',
+    ],
+  );
+}
+```
+
+### Zoom In & Zoom Out
+
+Zoom in & Zoom out
+
+```dart
+Future<void> screenFunction() async {
+  controller.zoomIn();
+}
+```
+
+```dart
+Future<void> screenFunction() async {
+  controller.zoomOut();
+}
+```
+
+### Move Map
+
+Move existing map to the specific latitude & longitude
+
+```dart
+Future<void> screenFunction() async {
+  controller.moveToPosition(FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229));
+}
+```
