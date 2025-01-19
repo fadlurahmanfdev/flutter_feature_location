@@ -83,7 +83,7 @@ class FeatureMapController extends ValueNotifier<MapControllerState> {
     );
     FeatureMarkerCoordinate? oldMarker;
     int indexMarkerChanges = -1;
-    for (int i = 0; i < (value.markersCoordinate.length ?? 0); i++) {
+    for (int i = 0; i < value.markersCoordinate.length; i++) {
       if (value.markersCoordinate[i].id == idMarker) {
         indexMarkerChanges = i;
         oldMarker = value.markersCoordinate[i];
@@ -93,7 +93,7 @@ class FeatureMapController extends ValueNotifier<MapControllerState> {
 
     if (oldMarker == null) return;
 
-    final newMarkersCoordinate = value.markersCoordinate!..[indexMarkerChanges] = newMarker;
+    final newMarkersCoordinate = value.markersCoordinate..[indexMarkerChanges] = newMarker;
     id++;
     value = value.copyWith(markersCoordinate: newMarkersCoordinate, action: 'move-marker$id');
   }
