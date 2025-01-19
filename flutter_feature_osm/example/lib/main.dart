@@ -100,16 +100,24 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.abc),
         onPressed: () {
-          // MOVE MARKER
-          if (index.isOdd) {
-            controller.moveMarker('id-marker-1',
-                coordinate: FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229));
-            controller.moveMap(FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229));
-          } else {
-            controller.moveMarker('id-marker-1',
-                coordinate: FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
-            controller.moveMap(FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
-          }
+          // ADD MARKER
+          controller.addMarker(
+            coordinates: [
+              FeatureMarkerCoordinate(id: 'id-marker-2', latitude: -6.373102, longitude: 106.834625),
+            ],
+          );
+          controller.moveMap(FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
+
+          // // MOVE MARKER
+          // if (index.isOdd) {
+          //   controller.moveMarker('id-marker-1',
+          //       coordinate: FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229));
+          //   controller.moveMap(FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229));
+          // } else {
+          //   controller.moveMarker('id-marker-1',
+          //       coordinate: FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
+          //   controller.moveMap(FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
+          // }
 
           // // ZOOM IN
           // controller.zoomIn();

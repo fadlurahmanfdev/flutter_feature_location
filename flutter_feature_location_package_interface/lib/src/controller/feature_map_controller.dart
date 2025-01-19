@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_feature_location_package_interface/src/controller/map_controller_state.dart';
 import 'package:flutter_feature_location_package_interface/src/model/location_coordinate.dart';
@@ -11,7 +13,7 @@ class FeatureMapController extends ValueNotifier<MapControllerState> {
     FeatureZoomOption? zoomOption,
   }) : super(MapControllerState(
           mapCoordinate: initMapCoordinate,
-          markersCoordinate: markersCoordinate,
+          markersCoordinate: markersCoordinate ?? [],
           zoomOption: zoomOption,
         )) {
     _zoomOption = zoomOption;
@@ -27,9 +29,53 @@ class FeatureMapController extends ValueNotifier<MapControllerState> {
     }
   }
 
+  void addMarker({required List<FeatureMarkerCoordinate> coordinates}) {
+    List<FeatureMarkerCoordinate> existingMarkers = value.markersCoordinate;
+    List<String> oldIds = existingMarkers.map((element) => element.id).toList();
+    List<String> existingLatLngs =
+        existingMarkers.map((element) => '${element.latitude}|${element.longitude}').toList();
+    List<FeatureMarkerCoordinate> newMarkers = coordinates;
+    String? idsConflicted;
+    bool? latLngConflicted;
+    for (final newMarker in newMarkers) {
+      if (oldIds.contains(newMarker.id)) {
+        idsConflicted = newMarker.id;
+        break;
+      }
+
+      if (existingLatLngs.contains('${newMarker.latitude}|${newMarker.longitude}')) {
+        idsConflicted = newMarker.id;
+        latLngConflicted = true;
+        break;
+      }
+    }
+
+    if (idsConflicted != null) {
+      if (latLngConflicted == true) {
+        log("conflicted latitude & longitude in marker id: $idsConflicted", level: 2000);
+      } else {
+        log("there is already marker with id: $idsConflicted", level: 2000);
+      }
+      return;
+    }
+
+    final newMarkersCoordinate = (value.recentlyAddedMarkersCoordinate ?? [])..addAll(coordinates);
+    id++;
+    value = value.copyWith(recentlyAddedMarkersCoordinate: newMarkersCoordinate, action: 'add-marker$id');
+  }
+
+  void removeMarker({required List<String> idsMarker}) {
+    id++;
+    value = value.copyWith(recentlyRemovedMarkersCoordinate: idsMarker, action: 'remove-marker$id');
+  }
+
+  void removeAllMarker() {
+    id++;
+    value = value.copyWith(recentlyRemovedMarkersCoordinate: value.markersCoordinate.map((element) => element.id).toList(), action: 'remove-marker$id');
+  }
+
   void moveMarker(String idMarker, {required FeatureLocationCoordinate coordinate}) {
-    assert(value.markersCoordinate != null);
-    assert(value.markersCoordinate?.isNotEmpty == true);
+    assert(value.markersCoordinate.isNotEmpty == true);
     final newMarker = FeatureMarkerCoordinate(
       id: idMarker,
       latitude: coordinate.latitude,
@@ -37,20 +83,19 @@ class FeatureMapController extends ValueNotifier<MapControllerState> {
     );
     FeatureMarkerCoordinate? oldMarker;
     int indexMarkerChanges = -1;
-    for (int i = 0; i < (value.markersCoordinate?.length ?? 0); i++) {
-      if (value.markersCoordinate?[i].id == idMarker) {
+    for (int i = 0; i < (value.markersCoordinate.length ?? 0); i++) {
+      if (value.markersCoordinate[i].id == idMarker) {
         indexMarkerChanges = i;
-        oldMarker = value.markersCoordinate?[i];
+        oldMarker = value.markersCoordinate[i];
         break;
       }
     }
 
     if (oldMarker == null) return;
 
-    final newMarkersCoordinate = value.markersCoordinate!
-      ..[indexMarkerChanges] = newMarker;
+    final newMarkersCoordinate = value.markersCoordinate!..[indexMarkerChanges] = newMarker;
     id++;
-    value = value.copyWith(markersCoordinate: newMarkersCoordinate,action: 'move-marker$id');
+    value = value.copyWith(markersCoordinate: newMarkersCoordinate, action: 'move-marker$id');
   }
 
   void zoomIn() {
