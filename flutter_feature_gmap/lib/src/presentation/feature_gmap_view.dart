@@ -29,8 +29,8 @@ class _FeatureGmapViewState extends State<FeatureGmapView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.controller.addListener(() {
-        if (widget.controller.coordinate?.serialize() != _coordinate?.serialize()) {
-          _coordinate = widget.controller.coordinate;
+        if (widget.controller.mapCoordinate?.serialize() != _coordinate?.serialize()) {
+          _coordinate = widget.controller.mapCoordinate;
           _controller.animateCamera(CameraUpdate.newLatLng(LatLng(_coordinate!.latitude, _coordinate!.longitude)));
         }
       });
@@ -57,9 +57,9 @@ class _FeatureGmapViewState extends State<FeatureGmapView> {
             onMapCreated: (GoogleMapController controller) {
               _controller = controller;
 
-              if (widget.controller.coordinate?.latitude != null && widget.controller.coordinate?.longitude != null) {
-                final lat = widget.controller.coordinate!.latitude;
-                final long = widget.controller.coordinate!.longitude;
+              if (widget.controller.mapCoordinate?.latitude != null && widget.controller.mapCoordinate?.longitude != null) {
+                final lat = widget.controller.mapCoordinate!.latitude;
+                final long = widget.controller.mapCoordinate!.longitude;
                 _controller.animateCamera(CameraUpdate.newLatLng(LatLng(lat, long)));
               }
             },

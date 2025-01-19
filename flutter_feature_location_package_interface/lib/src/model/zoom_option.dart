@@ -29,5 +29,19 @@ class FeatureZoomOption {
         "maxZoom": maxZoomLevel,
       };
 
+  FeatureZoomOption copyWith({
+    double? stepZoom,
+double? initZoom,
+double? minZoomLevel,
+double? maxZoomLevel,
+}){
+    return FeatureZoomOption(
+      stepZoom: stepZoom ?? this.stepZoom,
+      initZoom: initZoom ?? this.initZoom,
+      minZoomLevel: minZoomLevel ?? this.minZoomLevel,
+      maxZoomLevel: maxZoomLevel ?? this.maxZoomLevel,
+    );
+  }
+
   String serialize() => json.encode(toJson());
 }

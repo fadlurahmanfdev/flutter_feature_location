@@ -6,7 +6,7 @@ class FeatureLocationCoordinate {
 
   FeatureLocationCoordinate({required this.latitude, required this.longitude});
 
-  Map<String, double> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'latitude': latitude,
       'longitude': longitude,

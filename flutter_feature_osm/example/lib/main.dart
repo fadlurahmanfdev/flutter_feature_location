@@ -59,7 +59,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   FeatureMapController controller = FeatureMapController(
-    initCoordinate: FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229),
+    initMapCoordinate: FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229),
+    markersCoordinate: [
+      FeatureMarkerCoordinate(
+        id: 'id-marker-1',
+        latitude: -6.1719,
+        longitude: 106.8229,
+      )
+    ],
     zoomOption: FeatureZoomOption(
       stepZoom: 1.0,
       maxZoomLevel: 19.0,
@@ -91,12 +98,32 @@ class _MyHomePageState extends State<MyHomePage> {
       body: FeatureOSMMapView(controller: controller),
       // body: Center(),
       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.abc),
         onPressed: () {
+          // MOVE MARKER
           if (index.isOdd) {
-            controller.moveToPosition(FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229));
+            controller.moveMarker('id-marker-1',
+                coordinate: FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229));
+            controller.moveMap(FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229));
           } else {
-            controller.moveToPosition(FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
+            controller.moveMarker('id-marker-1',
+                coordinate: FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
+            controller.moveMap(FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
           }
+
+          // // ZOOM IN
+          // controller.zoomIn();
+
+          // // ZOOM OUT
+          // controller.zoomOut();
+
+          // // MOVE MAP
+          // if (index.isOdd) {
+          //   controller.moveToPosition(FeatureLocationCoordinate(latitude: -6.1719, longitude: 106.8229));
+          // } else {
+          //   controller.moveToPosition(FeatureLocationCoordinate(latitude: -6.373102, longitude: 106.834625));
+          // }
+
           index++;
         },
       ),
