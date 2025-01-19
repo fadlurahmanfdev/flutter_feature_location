@@ -53,7 +53,7 @@ class _FeatureOSMMapViewState extends State<FeatureOSMMapView> {
 
           if (_action?.contains('add-marker') == true) {
             List<FeatureMarkerCoordinate> oldMarkers = _markersCoordinate;
-            List<String> oldIds = _markersCoordinate.map((element) => element.id).toList();
+            List<String> oldIds = oldMarkers.map((element) => element.id).toList();
             List<String> existingLatLngs =
                 _markersCoordinate.map((element) => '${element.latitude}|${element.longitude}').toList();
             List<FeatureMarkerCoordinate> newMarkers = widget.controller.value.recentlyAddedMarkersCoordinate ?? [];
