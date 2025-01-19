@@ -46,6 +46,6 @@ jobs:
             "expiration": ${{ secrets.PUB_EXPIRATION }}
           }
           EOF
-          cd flutter_feature_package_interface
+          cd flutter_feature_location_package_interface
           dart pub publish -f
           
