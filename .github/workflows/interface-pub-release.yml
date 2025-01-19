@@ -1,4 +1,4 @@
-name: Publish Geolocator to Pub Dev
+name: Create Interface Release & Publish Interface to Pub Dev
 
 on:
   workflow_dispatch:
@@ -17,8 +17,13 @@ jobs:
         id: setup
         run: |
           echo "TAG VERSION: $GITHUB_REF_NAME"
-          echo "RELEASE VERSION: ${GITHUB_REF_NAME#geolocator-v}"
-          echo "::set-output name=release_name::${GITHUB_REF_NAME#geolocator-v}"
+          echo "RELEASE VERSION: ${GITHUB_REF_NAME#interface-v}"
+          echo "::set-output name=release_name::${GITHUB_REF_NAME#interface-v}"
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
           tag_name: ${{ github.ref_name }}
           release_name: ${{ steps.setup.outputs.release_name }}
@@ -46,6 +51,6 @@ jobs:
             "expiration": ${{ secrets.PUB_EXPIRATION }}
           }
           EOF
-          cd flutter_feature_geolocator
+          cd flutter_feature_package_interface
           dart pub publish -f
           

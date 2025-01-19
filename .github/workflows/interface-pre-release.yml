@@ -1,12 +1,13 @@
-name: Publish Geolocator to Pub Dev
+name: Interface Pre Release (Check Tag & Dry Run Publish Pub Dev)
 
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - 'interface-v*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: pub-dev
     permissions:
       id-token: write
       contents: read
@@ -17,13 +18,8 @@ jobs:
         id: setup
         run: |
           echo "TAG VERSION: $GITHUB_REF_NAME"
-          echo "RELEASE VERSION: ${GITHUB_REF_NAME#geolocator-v}"
-          echo "::set-output name=release_name::${GITHUB_REF_NAME#geolocator-v}"
-        with:
-          tag_name: ${{ github.ref_name }}
-          release_name: ${{ steps.setup.outputs.release_name }}
-          draft: false
-          prerelease: false
+          echo "RELEASE VERSION: ${GITHUB_REF_NAME#interface-v}"
+          echo "::set-output name=release_name::${GITHUB_REF_NAME#interface-v}"
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -33,7 +29,7 @@ jobs:
         run: |
           flutter doctor -v
           flutter --version
-      - name: Publish To Pub Dev
+      - name: Dry Only - Publish To Pub Dev
         run: |
           mkdir -p $HOME/.config/dart
           cat <<EOF > $HOME/.config/dart/pub-credentials.json
@@ -46,6 +42,6 @@ jobs:
             "expiration": ${{ secrets.PUB_EXPIRATION }}
           }
           EOF
-          cd flutter_feature_geolocator
-          dart pub publish -f
+          cd flutter_feature_location_package_interface
+          dart pub publish --dry-run
           

@@ -1,7 +1,7 @@
 name: flutter_feature_location_package_interface
-description: "A new Flutter package project."
+description: "Flutter Library to interface map feature in flutter_feature_location"
 version: 0.0.1
-homepage:
+homepage: https://github.com/fadlurahmanfdev/flutter_feature_location
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
